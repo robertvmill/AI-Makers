@@ -1,6 +1,8 @@
 export interface SlideData {
   id: string;
   content: React.ReactNode;
+  /** Duration in seconds for this slide's countdown timer */
+  durationSeconds: number;
 }
 
 function SlideLayout({
@@ -464,15 +466,15 @@ function WrapUpSlide() {
 }
 
 export const slides: SlideData[] = [
-  { id: "title", content: <TitleSlide /> },
-  { id: "about-makerslounge", content: <AboutMakersLoungeSlide /> },
-  { id: "welcome", content: <WelcomeSlide /> },
-  { id: "participation", content: <ParticipationSlide /> },
-  { id: "ai-state", content: <AIStateSlide /> },
-  { id: "what-is-v0", content: <WhatIsV0Slide /> },
-  { id: "branching", content: <BranchingSlide /> },
-  { id: "v0-tips", content: <V0TipsSlide /> },
-  { id: "build-time", content: <BuildTimeSlide /> },
-  { id: "show-and-tell", content: <ShowAndTellSlide /> },
-  { id: "wrap-up", content: <WrapUpSlide /> },
+  { id: "title", content: <TitleSlide />, durationSeconds: 3 * 60 },
+  { id: "about-makerslounge", content: <AboutMakersLoungeSlide />, durationSeconds: 3 * 60 },
+  { id: "welcome", content: <WelcomeSlide />, durationSeconds: 3 * 60 },
+  { id: "participation", content: <ParticipationSlide />, durationSeconds: 5 * 60 },
+  { id: "ai-state", content: <AIStateSlide />, durationSeconds: 3 * 60 },
+  { id: "what-is-v0", content: <WhatIsV0Slide />, durationSeconds: 3 * 60 },
+  { id: "branching", content: <BranchingSlide />, durationSeconds: 3 * 60 },
+  { id: "v0-tips", content: <V0TipsSlide />, durationSeconds: 3 * 60 },
+  { id: "build-time", content: <BuildTimeSlide />, durationSeconds: 55 * 60 },
+  { id: "show-and-tell", content: <ShowAndTellSlide />, durationSeconds: 10 * 60 },
+  { id: "wrap-up", content: <WrapUpSlide />, durationSeconds: 3 * 60 },
 ];
