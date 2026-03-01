@@ -142,8 +142,14 @@ export default function Presentation() {
         </div>
       </div>
 
-      {/* Timer overlay */}
-      <Timer visible={timerVisible} onToggle={toggleTimer} />
+      {/* Timer overlay -- resets & auto-starts on each slide change */}
+      <Timer
+        visible={timerVisible}
+        onToggle={toggleTimer}
+        durationSeconds={slides[currentSlide].durationSeconds}
+        slideId={slides[currentSlide].id}
+        slideName={slides[currentSlide].id.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+      />
 
       {/* Links panel */}
       <LinksPanel visible={linksVisible} onToggle={toggleLinks} />
