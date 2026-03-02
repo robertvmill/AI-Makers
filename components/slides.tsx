@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 export interface SlideData {
   id: string;
   content: React.ReactNode;
@@ -15,6 +19,66 @@ function SlideLayout({
       className={`flex h-full w-full flex-col items-center justify-center px-12 py-16 ${className}`}
     >
       {children}
+    </div>
+  );
+}
+
+function CouponCode() {
+  const [unlocked, setUnlocked] = useState(false);
+  const [input, setInput] = useState("");
+  const [error, setError] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (input.toUpperCase() === "AIMAKERSVO") {
+      setUnlocked(true);
+    } else {
+      setError(true);
+    }
+  }
+
+  if (unlocked) {
+    return (
+      <div className="mt-8 flex flex-col items-center rounded-xl border-2 border-accent bg-accent/5 px-8 py-5">
+        <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+          Step 1 — Redeem your v0 credits
+        </p>
+        <code className="mt-2 text-3xl font-bold tracking-wider text-accent">
+          AI-MAKERS-V0-1
+        </code>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Enter this code at v0.dev to claim your 30 free credits
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-8 flex flex-col items-center rounded-xl border-2 border-border bg-card px-8 py-5">
+      <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
+        Step 1 — Unlock your v0 credits
+      </p>
+      <form onSubmit={handleSubmit} className="mt-3 flex items-center gap-2">
+        <input
+          type="password"
+          value={input}
+          onChange={(e) => { setInput(e.target.value); setError(false); }}
+          placeholder="Enter password"
+          className={`w-48 rounded-lg border bg-background px-3 py-2 text-center text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-accent ${
+            error ? "border-destructive" : "border-border"
+          }`}
+        />
+        <button
+          type="submit"
+          className="rounded-lg bg-accent px-4 py-2 text-sm font-medium text-accent-foreground transition-colors hover:bg-accent/90"
+        >
+          Unlock
+        </button>
+      </form>
+      {error && <p className="mt-2 text-sm text-destructive">Incorrect password</p>}
+      <p className="mt-2 text-sm text-muted-foreground">
+        Password will be shared during the session
+      </p>
     </div>
   );
 }
@@ -308,6 +372,55 @@ function BranchingSlide() {
   );
 }
 
+function CollaborationSlide() {
+  return (
+    <SlideLayout>
+      <Tag>The Real Power</Tag>
+      <h2 className="max-w-3xl text-balance text-center text-5xl font-semibold leading-tight tracking-tight text-foreground">
+        Coders + Creators, One Project
+      </h2>
+      <p className="mt-6 max-w-2xl text-balance text-center text-xl leading-relaxed text-muted-foreground">
+        {"This is where me and my partner found the most value. v0 bridges the gap between hardcore devs and low-code builders."}
+      </p>
+      <div className="mt-10 grid max-w-4xl grid-cols-3 gap-6">
+        <div className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-2xl">
+            {"</>"}
+          </div>
+          <h3 className="text-lg font-semibold text-card-foreground">The Coder</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Works in VS Code or Cursor. Writes custom logic, APIs, and complex features. Pushes code via Git.
+          </p>
+        </div>
+        <div className="flex flex-col items-center rounded-xl border-2 border-accent bg-accent/5 p-6 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent/20 text-xl font-bold text-accent">
+            v0
+          </div>
+          <h3 className="text-lg font-semibold text-card-foreground">The Bridge</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Same repo, same project. v0 creates branches automatically. Changes merge together through PRs.
+          </p>
+        </div>
+        <div className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-2xl">
+            {"🎨"}
+          </div>
+          <h3 className="text-lg font-semibold text-card-foreground">The Creator</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Works in v0 with natural language. Builds UI, designs pages, and iterates visually. No terminal needed.
+          </p>
+        </div>
+      </div>
+      <div className="mt-8 max-w-2xl rounded-lg border border-border bg-card px-6 py-4 text-center">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          <span className="font-semibold text-card-foreground">How it works: </span>
+          {"The coder builds the backend and complex features in their IDE. The creator designs pages and components in v0. Both push to the same GitHub repo — v0 handles branching and merging automatically."}
+        </p>
+      </div>
+    </SlideLayout>
+  );
+}
+
 function V0TipsSlide() {
   return (
     <SlideLayout>
@@ -353,6 +466,49 @@ function V0TipsSlide() {
   );
 }
 
+function TheProjectSlide() {
+  return (
+    <SlideLayout>
+      <Tag>{"Tonight's Project"}</Tag>
+      <h2 className="max-w-3xl text-balance text-center text-5xl font-semibold leading-tight tracking-tight text-foreground">
+        The MakersLounge Community Wall
+      </h2>
+      <p className="mt-6 max-w-2xl text-balance text-center text-xl leading-relaxed text-muted-foreground">
+        {"We're all building one site together. Each of you creates your own maker profile page — by the end of the night, we'll have a living directory of tonight's builders."}
+      </p>
+      <div className="mt-10 grid max-w-4xl grid-cols-3 gap-6">
+        <div className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center">
+          <span className="mb-2 text-3xl font-bold text-accent">20</span>
+          <h3 className="text-lg font-semibold text-card-foreground">Makers</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            Each person builds their own page
+          </p>
+        </div>
+        <div className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center">
+          <span className="mb-2 text-3xl font-bold text-accent">1</span>
+          <h3 className="text-lg font-semibold text-card-foreground">Repo</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            All pages live in the same GitHub project
+          </p>
+        </div>
+        <div className="flex flex-col items-center rounded-xl border border-border bg-card p-6 text-center">
+          <span className="mb-2 text-3xl font-bold text-accent">{"∞"}</span>
+          <h3 className="text-lg font-semibold text-card-foreground">Value</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            The more people build, the better it gets for everyone
+          </p>
+        </div>
+      </div>
+      <div className="mt-8 max-w-2xl rounded-lg border border-border bg-card px-6 py-4 text-center">
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          <span className="font-semibold text-card-foreground">Your page, your style. </span>
+          {"Show off who you are — your name, what you're building, your skills, links, a fun fact. Make it yours."}
+        </p>
+      </div>
+    </SlideLayout>
+  );
+}
+
 function BuildTimeSlide() {
   return (
     <SlideLayout>
@@ -360,42 +516,43 @@ function BuildTimeSlide() {
       <h2 className="max-w-3xl text-balance text-center text-5xl font-semibold leading-tight tracking-tight text-foreground">
         {"Let's Build!"}
       </h2>
-      <p className="mt-6 max-w-2xl text-balance text-center text-xl leading-relaxed text-muted-foreground">
-        You have 55 minutes and $30 in v0 credits. Build something that excites you.
-      </p>
-      <div className="mt-8 flex flex-col items-center rounded-xl border-2 border-accent bg-accent/5 px-8 py-5">
-        <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-          Redeem your v0 credits
-        </p>
-        <code className="mt-2 text-3xl font-bold tracking-wider text-accent">
-          AI-MAKERS-V0-1
-        </code>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Enter this code at v0.dev to claim your 30 free credits
-        </p>
-      </div>
-      <div className="mt-8 max-w-2xl">
-        <p className="mb-4 text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">
-          Need inspiration? Try one of these:
-        </p>
-        <div className="grid grid-cols-2 gap-4">
+      <CouponCode />
+      <div className="mt-6 max-w-3xl">
+        <div className="flex flex-col gap-3">
           {[
-            "A personal portfolio site",
-            "An AI chatbot for your business",
-            "A tool that solves a daily problem",
-            "A fun side project you've been dreaming about",
-          ].map((idea) => (
+            {
+              step: "2",
+              title: "Fork the community wall repo",
+              desc: "We'll drop the GitHub link in the chat. Connect it to v0.",
+            },
+            {
+              step: "3",
+              title: "Create your maker page",
+              desc: "Build your profile page in v0 — your name, what you're building, skills, links, personality.",
+            },
+            {
+              step: "4",
+              title: "Open a PR when you're ready",
+              desc: "Hit \"Open PR\" in v0 to merge your page into the community wall.",
+            },
+          ].map((item) => (
             <div
-              key={idea}
-              className="rounded-lg border border-border bg-card px-5 py-4 text-center text-sm text-card-foreground"
+              key={item.step}
+              className="flex items-start gap-4 rounded-lg border border-border bg-card px-5 py-3"
             >
-              {idea}
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-accent-foreground">
+                {item.step}
+              </span>
+              <div>
+                <span className="font-semibold text-card-foreground">{item.title}</span>
+                <span className="ml-2 text-sm text-muted-foreground">{item.desc}</span>
+              </div>
             </div>
           ))}
         </div>
       </div>
-      <p className="mt-10 text-lg font-medium text-accent">
-        {"Start with: what do you wish existed?"}
+      <p className="mt-8 text-lg font-medium text-accent">
+        You have 55 minutes. Make it yours!
       </p>
     </SlideLayout>
   );
@@ -471,7 +628,9 @@ export const slides: SlideData[] = [
   { id: "ai-state", content: <AIStateSlide /> },
   { id: "what-is-v0", content: <WhatIsV0Slide /> },
   { id: "branching", content: <BranchingSlide /> },
+  { id: "collaboration", content: <CollaborationSlide /> },
   { id: "v0-tips", content: <V0TipsSlide /> },
+  { id: "the-project", content: <TheProjectSlide /> },
   { id: "build-time", content: <BuildTimeSlide /> },
   { id: "show-and-tell", content: <ShowAndTellSlide /> },
   { id: "wrap-up", content: <WrapUpSlide /> },
