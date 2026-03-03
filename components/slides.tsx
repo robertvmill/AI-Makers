@@ -98,7 +98,7 @@ function TitleSlide() {
     <SlideLayout>
       <Tag>MakersLounge Toronto</Tag>
       <h1 className="max-w-4xl text-balance text-center text-7xl font-semibold leading-tight tracking-tight text-foreground">
-        AI Makers Night
+        AI Workshop for Software Developers
       </h1>
       <p className="mt-6 max-w-xl text-balance text-center text-xl leading-relaxed text-muted-foreground">
         Build real AI-powered apps in 90 minutes.

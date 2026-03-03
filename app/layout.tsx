@@ -13,7 +13,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Makers Night | MakersLounge Toronto",
+  title: "AI Workshop for Software Developers | MakersLounge Toronto",
   description:
     "Hands-on AI building workshop by MakersLounge Toronto. Build real AI apps in 90 minutes.",
 };
